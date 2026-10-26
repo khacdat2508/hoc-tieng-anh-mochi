@@ -3,7 +3,7 @@
 Web học tiếng Anh cho bé 2 tuổi: hình to, chạm là nghe, không chữ phức tạp, không quảng cáo.
 
 ## Có gì bên trong
-- **11 chủ đề, ~120 từ**: Con vật, Màu sắc, Số đếm 1–10, Hoa quả, Hình khối, Cơ thể, Cảm xúc (happy, sad, angry, sleepy…), Xe cộ, Đồ ăn, Đồ vật, Thiên nhiên.
+- **12 chủ đề, ~125 từ**: Con vật, Màu sắc, Số đếm 1–10, Hoa quả, Hình khối, Cơ thể, Gia đình (Mommy, Daddy, baby…), Cảm xúc (happy, sad, angry, sleepy…), Xe cộ, Đồ ăn, Đồ vật, Thiên nhiên.
 - **📖 Học**: thẻ từ lớn, tự đọc khi mở; chạm thẻ để nghe lại, vuốt hoặc bấm ◀ ▶ để đổi; nút *Tự chạy* để máy tự lật thẻ.
 - **🎯 Chơi**: mỗi bài 10 câu. Máy hỏi “Where is the dog?”, bé chạm đúng hình → pháo hoa + ⭐ (chạm hình không đọc gì, chỉ có âm thanh). Sai 2 lần thì hình đúng nhấp nháy gợi ý. Xong 10 câu có màn vỗ tay chúc mừng.
 - **🎈 Bóng bay**: chạm bóng để nổ và nghe tên màu.

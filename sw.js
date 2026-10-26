@@ -1,6 +1,6 @@
 // Lưu đệm để mở được khi không có mạng (chỉ hoạt động khi chạy qua http/https).
-const CACHE = 'be-hoc-ta-v3';
-const FILES = ['./', 'index.html', 'css/styles.css', 'js/data.js', 'js/audio.js', 'js/app.js', 'icon.svg', 'manifest.webmanifest'];
+const CACHE = 'be-hoc-ta-v4';
+const FILES = ['./', 'index.html', 'css/styles.css', 'js/data.js', 'js/art.js', 'js/audio.js', 'js/app.js', 'icon.svg', 'manifest.webmanifest'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));

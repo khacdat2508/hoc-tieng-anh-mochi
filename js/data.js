@@ -1,5 +1,5 @@
 // Từ vựng theo chủ đề. Mỗi mục: en (tiếng Anh), vi (nghĩa), và một kiểu hình:
-// emoji | color (ô màu) | svg + fill (hình khối) | n (số đếm).
+// emoji | art (hình vẽ trong art.js) | color (ô màu) | svg + fill (hình khối) | n (số đếm).
 // say: câu đọc thêm sau từ ở chế độ Học (vd tiếng còi xe).
 // plural: danh từ số nhiều -> hỏi "Where are the ...?"
 
@@ -102,6 +102,20 @@
         { en: 'leg', vi: 'cái chân', emoji: '🦵' },
         { en: 'teeth', vi: 'răng', emoji: '🦷', plural: true },
         { en: 'tongue', vi: 'cái lưỡi', emoji: '👅' }
+      ]
+    },
+    {
+      // noThe: gọi như tên riêng -> "Where is Mommy?" (không có "the")
+      id: 'family', en: 'Family', vi: 'Gia đình', icon: '👨‍👩‍👧', tint: '#f3d1ff',
+      items: [
+        { en: 'Mommy', vi: 'mẹ', art: 'mommy', noThe: true },
+        { en: 'Daddy', vi: 'bố', art: 'daddy', noThe: true },
+        { en: 'baby', vi: 'em bé', art: 'baby' },
+        { en: 'Grandma', vi: 'bà', art: 'grandma', noThe: true },
+        { en: 'Grandpa', vi: 'ông', art: 'grandpa', noThe: true },
+        { en: 'brother', vi: 'anh/em trai', art: 'brother' },
+        { en: 'sister', vi: 'chị/em gái', art: 'sister' },
+        { en: 'family', vi: 'gia đình', art: 'family' }
       ]
     },
     {

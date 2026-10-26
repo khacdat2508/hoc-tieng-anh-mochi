@@ -61,9 +61,9 @@
     });
   }
 
-  // "the dog" / "red" / "number three" / "happy"
+  // "the dog" / "red" / "number three" / "happy" / "Mommy"
   function nameOf(topic, item) {
-    if (topic.id === 'colors' || topic.ask === 'who') return item.en;
+    if (topic.id === 'colors' || topic.ask === 'who' || item.noThe) return item.en;
     if (topic.id === 'numbers') return 'number ' + item.en;
     return 'the ' + item.en;
   }
@@ -75,6 +75,9 @@
   function visual(item) {
     if (item.color) {
       return `<span class="swatch${item.color === '#ffffff' ? ' light' : ''}" style="--c:${item.color}"></span>`;
+    }
+    if (item.art) {
+      return `<svg class="art" viewBox="0 0 200 200" aria-hidden="true">${ART_SVG[item.art]}</svg>`;
     }
     if (item.svg) {
       return `<svg class="shape" viewBox="0 0 100 100" style="--c:${item.fill}" aria-hidden="true">${SHAPES_SVG[item.svg]}</svg>`;
