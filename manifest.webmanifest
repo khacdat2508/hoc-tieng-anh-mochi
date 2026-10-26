@@ -1,0 +1,14 @@
+{
+  "name": "Bé Học Tiếng Anh",
+  "short_name": "Bé Học TA",
+  "description": "Học tiếng Anh cho bé 2 tuổi bằng hình ảnh và giọng đọc.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#fff6e5",
+  "theme_color": "#ffd166",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
