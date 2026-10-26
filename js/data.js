@@ -108,14 +108,14 @@
       // noThe: gọi như tên riêng -> "Where is Mommy?" (không có "the")
       id: 'family', en: 'Family', vi: 'Gia đình', icon: '👨‍👩‍👧', tint: '#f3d1ff',
       items: [
-        { en: 'Mommy', vi: 'mẹ', art: 'mommy', noThe: true },
-        { en: 'Daddy', vi: 'bố', art: 'daddy', noThe: true },
-        { en: 'baby', vi: 'em bé', art: 'baby' },
-        { en: 'Grandma', vi: 'bà', art: 'grandma', noThe: true },
-        { en: 'Grandpa', vi: 'ông', art: 'grandpa', noThe: true },
-        { en: 'brother', vi: 'anh/em trai', art: 'brother' },
-        { en: 'sister', vi: 'chị/em gái', art: 'sister' },
-        { en: 'family', vi: 'gia đình', art: 'family' }
+        { en: 'Mommy', vi: 'mẹ', art: 'mommy', emoji: '👩', noThe: true },
+        { en: 'Daddy', vi: 'bố', art: 'daddy', emoji: '👨', noThe: true },
+        { en: 'baby', vi: 'em bé', art: 'baby', emoji: '👶' },
+        { en: 'Grandma', vi: 'bà', art: 'grandma', emoji: '👵', noThe: true },
+        { en: 'Grandpa', vi: 'ông', art: 'grandpa', emoji: '👴', noThe: true },
+        { en: 'brother', vi: 'anh/em trai', art: 'brother', emoji: '👦' },
+        { en: 'sister', vi: 'chị/em gái', art: 'sister', emoji: '👧' },
+        { en: 'family', vi: 'gia đình', art: 'family', emoji: '👨‍👩‍👧' }
       ]
     },
     {

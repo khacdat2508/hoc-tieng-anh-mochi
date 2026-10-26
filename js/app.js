@@ -76,7 +76,8 @@
     if (item.color) {
       return `<span class="swatch${item.color === '#ffffff' ? ' light' : ''}" style="--c:${item.color}"></span>`;
     }
-    if (item.art) {
+    // Nếu art.js chưa tải (bản cũ còn trong bộ nhớ đệm) thì dùng emoji dự phòng.
+    if (item.art && window.ART_SVG) {
       return `<svg class="art" viewBox="0 0 200 200" aria-hidden="true">${ART_SVG[item.art]}</svg>`;
     }
     if (item.svg) {
