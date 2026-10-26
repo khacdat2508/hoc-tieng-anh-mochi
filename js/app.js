@@ -70,7 +70,7 @@
   const askLead = (topic, item) => topic.ask === 'who' ? 'Who is' : item.plural ? 'Where are' : 'Where is';
   const askText = (topic, item) => `${askLead(topic, item)} ${nameOf(topic, item)}?`;
   const askVi = (topic, item) => topic.askVi ? topic.askVi.replace('{vi}', item.vi) : `${cap(item.vi)} ở đâu?`;
-  const speechFor = item => item.speech || (cap(item.en) + '! ' + (item.say || ''));
+  const speechFor = item => cap(item.en) + '! ' + (item.say || '');
 
   function visual(item) {
     if (item.color) {

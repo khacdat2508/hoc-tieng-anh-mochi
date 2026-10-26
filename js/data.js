@@ -1,6 +1,6 @@
 // Từ vựng theo chủ đề. Mỗi mục: en (tiếng Anh), vi (nghĩa), và một kiểu hình:
 // emoji | color (ô màu) | svg + fill (hình khối) | n (số đếm).
-// say: câu đọc thêm sau từ (tiếng kêu...), speech: thay toàn bộ câu đọc ở chế độ Học.
+// say: câu đọc thêm sau từ ở chế độ Học (vd tiếng còi xe).
 // plural: danh từ số nhiều -> hỏi "Where are the ...?"
 
 (function () {
@@ -58,10 +58,7 @@
     },
     {
       id: 'numbers', en: 'Numbers', vi: 'Số đếm', icon: '🔢', tint: '#caffbf',
-      items: NUM_EN.map((w, i) => ({
-        en: w, vi: 'số ' + NUM_VI[i], n: i + 1, emoji: NUM_EMOJI[i],
-        speech: NUM_EN.slice(0, i + 1).join(', ') + '... ' + w + '!'
-      }))
+      items: NUM_EN.map((w, i) => ({ en: w, vi: 'số ' + NUM_VI[i], n: i + 1, emoji: NUM_EMOJI[i] }))
     },
     {
       id: 'fruits', en: 'Fruits', vi: 'Hoa quả', icon: '🍎', tint: '#fdffb6',

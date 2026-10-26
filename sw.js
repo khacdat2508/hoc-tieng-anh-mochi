@@ -1,5 +1,5 @@
 // Lưu đệm để mở được khi không có mạng (chỉ hoạt động khi chạy qua http/https).
-const CACHE = 'be-hoc-ta-v2';
+const CACHE = 'be-hoc-ta-v3';
 const FILES = ['./', 'index.html', 'css/styles.css', 'js/data.js', 'js/audio.js', 'js/app.js', 'icon.svg', 'manifest.webmanifest'];
 
 self.addEventListener('install', e => {
