@@ -374,9 +374,13 @@
         <div class="ask-text" id="askText"></div>
       </div>
       <div class="quiz-progress" id="qp" aria-label="Tiến độ bài">${'<i>⭐</i>'.repeat(QUIZ_LEN)}</div>
-      <main class="choices" id="choices"></main>`;
+      <main class="choices" id="choices"></main>
+      <footer class="play-foot" id="playFoot">
+        <button class="nav next-q" id="nextQ" aria-label="Câu tiếp theo" hidden>▶</button>
+      </footer>`;
 
     const $choices = $('#choices');
+    const $next = $('#nextQ');
     const $askBtn = $('#ask');
     const $qp = Array.from($('#qp').children);
 
@@ -391,6 +395,7 @@
       target = nextTarget();
       misses = 0;
       locked = false;
+      $next.hidden = true;
       const k = Math.min(settings.choices, topic.items.length);
       const others = shuffle(topic.items.filter(i => i !== target)).slice(0, k - 1);
       options = shuffle([target].concat(others));
@@ -426,10 +431,10 @@
         const star = $qp[done++];
         star.classList.add('done');
         bounce(star);
-        await wait(1400);
+        // Không tự sang câu mới: hiện nút ▶ để bố mẹ/bé bấm khi sẵn sàng.
+        await wait(700);
         if (!alive(id)) return;
-        if (done >= QUIZ_LEN) finish();
-        else round();
+        $next.hidden = false;
       } else {
         Sfx.oops();
         shake(btn);
@@ -441,9 +446,17 @@
       }
     }
 
+    function next() {
+      if (!locked || $next.hidden) return;
+      Sfx.tap();
+      if (done >= QUIZ_LEN) finish();
+      else round();
+    }
+
     function finish() {
       $('#askRow').remove();
       $('#qp').remove();
+      $('#playFoot').remove();
       $choices.className = 'finish';
       $choices.innerHTML = `
         <div class="clap">👏</div>
@@ -460,6 +473,8 @@
     }
 
     $askBtn.addEventListener('click', ask);
+    $next.addEventListener('click', next);
+    listen(window, 'keydown', e => { if (e.key === 'ArrowRight' || e.key === 'Enter') next(); });
     $choices.addEventListener('click', e => {
       const btn = e.target.closest('.choice');
       if (btn) choose(btn);

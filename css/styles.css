@@ -337,6 +337,21 @@ button:focus-visible, a:focus-visible { outline: 4px solid var(--accent); outlin
   50% { box-shadow: 0 0 0 10px rgba(255, 122, 89, .6), var(--shadow); }
 }
 
+.play-foot {
+  display: flex;
+  justify-content: center;
+  padding: 0 16px 16px;
+}
+.next-q {
+  width: clamp(110px, 18vw, 150px);
+  font-size: clamp(48px, 8vw, 68px);
+  background: var(--accent);
+  color: #fff;
+  animation: pop-in .35s cubic-bezier(.3, 1.5, .6, 1) both, nudge 1.2s ease-in-out .4s infinite;
+}
+.next-q[hidden] { display: block; visibility: hidden; animation: none; }
+@keyframes nudge { 50% { transform: translateX(8px); } }
+
 .quiz-progress {
   display: flex;
   justify-content: center;
