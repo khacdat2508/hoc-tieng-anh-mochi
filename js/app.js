@@ -553,6 +553,7 @@
             </select>
             <button class="pill" id="s-test">🔊 Nghe thử</button>
           </div>
+          <p class="voice-now" id="s-now"></p>
           ${!Voice.supported
             ? '<p class="warn">Trình duyệt này không hỗ trợ đọc giọng nói. Hãy dùng Chrome, Edge hoặc Safari.</p>'
             : voices.length === 0 ? '<p class="warn">Chưa thấy giọng tiếng Anh. Trên Windows: Cài đặt → Thời gian &amp; ngôn ngữ → Giọng nói → thêm giọng English.</p>' : ''}
@@ -577,8 +578,14 @@
     const q = s => ov.querySelector(s);
     q('#s-vi').addEventListener('change', e => { settings.showVi = e.target.checked; saveSettings(); });
     q('#s-sfx').addEventListener('change', e => { settings.sfx = e.target.checked; saveSettings(); });
-    q('#s-voice').addEventListener('change', e => { settings.voice = e.target.value; saveSettings(); say('Hello! Let\'s play!'); });
-    q('#s-test').addEventListener('click', () => say('Hello! Dog, cat, duck.'));
+    // Hiện tên giọng thật sự đang đọc để bố mẹ biết mà đổi nếu nghe chưa chuẩn.
+    const showVoice = () => {
+      const v = Voice.chosen(settings.voice);
+      q('#s-now').textContent = v ? `Đang dùng: ${v.name} (${v.lang})` : '';
+    };
+    showVoice();
+    q('#s-voice').addEventListener('change', e => { settings.voice = e.target.value; saveSettings(); showVoice(); say('Hand, cat, apple.'); });
+    q('#s-test').addEventListener('click', () => say('Hand, cat, apple.'));
     ov.querySelectorAll('.seg').forEach(s => s.addEventListener('click', e => {
       const b = e.target.closest('button');
       if (!b) return;

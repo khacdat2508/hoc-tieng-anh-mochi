@@ -2,10 +2,13 @@
 
 window.Voice = (function () {
   const synth = 'speechSynthesis' in window ? window.speechSynthesis : null;
-  // Ưu tiên các giọng nữ Mỹ rõ ràng, phổ biến trên Chrome / Edge / iOS / Windows.
+  // Chỉ dùng giọng Mỹ: giọng Anh-Anh đọc "hand" gần như "han(d)", bé dễ nghe khác với bố mẹ dạy.
+  // Ưu tiên giọng tự nhiên (Natural / Enhanced) rồi mới tới các giọng máy cũ.
+  const US = /en[-_]US/i;
+  const NATURAL = /natural|neural|enhanced|premium/i;
   const PREFERRED = [
-    'Google US English', 'Microsoft Jenny Online', 'Microsoft Aria Online', 'Microsoft Ava',
-    'Samantha', 'Microsoft Zira', 'Google UK English Female'
+    'Microsoft Jenny Online', 'Microsoft Aria Online', 'Microsoft Ava', 'Google US English',
+    'Samantha', 'Microsoft Zira', 'Microsoft David'
   ];
   let voices = [];
   let current = null; // giữ tham chiếu để Chrome không thu hồi utterance trước khi onend chạy
@@ -27,11 +30,13 @@ window.Voice = (function () {
       const v = voices.find(x => x.name === name);
       if (v) return v;
     }
-    for (const p of PREFERRED) {
-      const v = voices.find(x => x.name.includes(p));
-      if (v) return v;
-    }
-    return voices.find(x => /en[-_]US/i.test(x.lang)) || voices[0] || null;
+    // Giọng tự nhiên luôn đứng trước (iPhone: "Samantha (Enhanced)", "Ava (Premium)"), sau đó theo PREFERRED.
+    const rank = v => {
+      const i = PREFERRED.findIndex(p => v.name.includes(p));
+      return (NATURAL.test(v.name) ? 0 : 100) + (i < 0 ? 50 : i);
+    };
+    const us = voices.filter(x => US.test(x.lang)).sort((a, b) => rank(a) - rank(b));
+    return us[0] || voices[0] || null;
   }
 
   function speak(text, opts) {
@@ -56,7 +61,8 @@ window.Voice = (function () {
     supported: !!synth,
     speak,
     cancel() { if (synth) synth.cancel(); current = null; },
-    list() { if (!voices.length) load(); return voices.slice(); }
+    list() { if (!voices.length) load(); return voices.slice(); },
+    chosen(name) { return choose(name); }
   };
 })();
 
