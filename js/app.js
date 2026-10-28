@@ -129,6 +129,64 @@
     setTimeout(() => { if (alive(id)) say('Hooray! Great job!'); }, 700);
   }
 
+  // Khen mỗi câu đúng (~3 giây): vỗ tay, bàn tay 👏 to vỗ trên hình, chữ khen to giữa màn,
+  // pháo giấy nổ thêm và 👏🌟 bay lên từ dưới, kèm giọng đọc lời khen.
+  const PRAISE = ['Good job!', 'Yay! Well done!', 'Great!', 'Super!', 'You did it!', 'Wow! Amazing!'];
+  const CHEER_MS = 2800;
+  function fxSpan(cls, text, x, y) {
+    const s = document.createElement('span');
+    s.className = cls;
+    s.textContent = text;
+    s.style.left = x + 'px';
+    s.style.top = y + 'px';
+    $fx.appendChild(s);
+    return s;
+  }
+  function cheer(id, el) {
+    Sfx.applause(CHEER_MS / 1000);
+    const r = el.getBoundingClientRect();
+    const praise = pick(PRAISE);
+
+    const hand = fxSpan('spark cheer', '👏', r.left + r.width / 2, r.top + r.height / 2);
+    const claps = [];
+    for (let i = 1; i <= 8; i++) {
+      claps.push({ transform: `translate(-50%,-50%) scale(${i % 2 ? 1.15 : 1}) rotate(${i % 2 ? -12 : 12}deg)`, opacity: 1, offset: i * 0.1 });
+    }
+    hand.animate([
+      { transform: 'translate(-50%,-50%) scale(.3)', opacity: 0 },
+      ...claps,
+      { transform: 'translate(-50%,-90%) scale(1.3)', opacity: 0 }
+    ], { duration: CHEER_MS, easing: 'ease-out' }).onfinish = () => hand.remove();
+
+    const word = fxSpan('cheer-text', praise, innerWidth / 2, innerHeight * 0.4);
+    word.animate([
+      { transform: 'translate(-50%,-50%) scale(.2) rotate(-8deg)', opacity: 0 },
+      { transform: 'translate(-50%,-50%) scale(1.15) rotate(3deg)', opacity: 1, offset: .15 },
+      { transform: 'translate(-50%,-50%) scale(1) rotate(0)', offset: .25 },
+      { transform: 'translate(-50%,-50%) scale(1.06)', offset: .55 },
+      { transform: 'translate(-50%,-50%) scale(1)', opacity: 1, offset: .85 },
+      { transform: 'translate(-50%,-80%) scale(.9)', opacity: 0 }
+    ], { duration: CHEER_MS, easing: 'ease-out' }).onfinish = () => word.remove();
+
+    let n = 0;
+    const timer = setInterval(() => {
+      if (!alive(id) || n++ >= 3) return clearInterval(timer);
+      confettiAt(innerWidth * (0.15 + Math.random() * 0.7), innerHeight * (0.25 + Math.random() * 0.4));
+    }, 500);
+    onLeave(() => clearInterval(timer));
+
+    for (let i = 0; i < 10; i++) {
+      const s = fxSpan('spark', pick(['👏', '🌟', '🎉', '⭐']), innerWidth * (0.05 + Math.random() * 0.9), innerHeight);
+      s.style.fontSize = (32 + Math.random() * 24) + 'px';
+      s.animate([
+        { transform: 'translateY(0) scale(.8)', opacity: 1 },
+        { transform: `translateY(-${innerHeight * (0.5 + Math.random() * 0.4)}px) scale(1.2) rotate(${Math.random() * 60 - 30}deg)`, opacity: 0 }
+      ], { duration: 1800 + Math.random() * 900, delay: Math.random() * 900, easing: 'ease-out', fill: 'backwards' }).onfinish = () => s.remove();
+    }
+
+    return say(praise);
+  }
+
   function confettiAt(x, y) {
     const pieces = ['⭐', '✨', '🎉', '🌟', '💖', '🎈'];
     for (let i = 0; i < 18; i++) {
@@ -374,10 +432,10 @@
         <div class="ask-text" id="askText"></div>
       </div>
       <div class="quiz-progress" id="qp" aria-label="Tiến độ bài">${'<i>⭐</i>'.repeat(QUIZ_LEN)}</div>
-      <main class="choices" id="choices"></main>
-      <footer class="play-foot" id="playFoot">
+      <div class="play-foot" id="playFoot">
         <button class="nav next-q" id="nextQ" aria-label="Câu tiếp theo" hidden>▶</button>
-      </footer>`;
+      </div>
+      <main class="choices" id="choices"></main>`;
 
     const $choices = $('#choices');
     const $next = $('#nextQ');
@@ -432,7 +490,8 @@
         star.classList.add('done');
         bounce(star);
         // Không tự sang câu mới: hiện nút ▶ để bố mẹ/bé bấm khi sẵn sàng.
-        await wait(700);
+        const praised = cheer(id, btn);
+        await Promise.all([praised, wait(CHEER_MS - 300)]);
         if (!alive(id)) return;
         $next.hidden = false;
       } else {
@@ -475,9 +534,14 @@
     $askBtn.addEventListener('click', ask);
     $next.addEventListener('click', next);
     listen(window, 'keydown', e => { if (e.key === 'ArrowRight' || e.key === 'Enter') next(); });
+    // Nhận ngay lúc ngón tay chạm xuống: bé chạm nhẹ hoặc đang tì tay lên màn iPad vẫn chọn được.
+    $choices.addEventListener('pointerdown', e => {
+      const btn = e.target.closest('.choice');
+      if (btn) { e.preventDefault(); choose(btn); }
+    });
     $choices.addEventListener('click', e => {
       const btn = e.target.closest('.choice');
-      if (btn) choose(btn);
+      if (btn && e.detail === 0) choose(btn); // bàn phím (Enter/Space)
     });
 
     round();

@@ -304,15 +304,18 @@ button:focus-visible, a:focus-visible { outline: 4px solid var(--accent); outlin
 .ask-text b { color: var(--accent); }
 .ask-text small { display: block; font-size: 18px; color: var(--muted); font-weight: 600; }
 
+/* Hàng tranh nằm sát mép dưới để bé với tới dễ, không phải vươn tay qua màn hình. */
 .choices {
-  flex: 1;
-  min-height: 0;
   display: flex;
   flex-wrap: wrap;
-  align-content: center;
+  align-content: flex-end;
   justify-content: center;
   gap: clamp(14px, 3vw, 32px);
-  padding: 12px 16px 24px;
+  padding: 8px 16px 12px;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 .choices.n2 { --w: min(40vw, 54dvh, 360px); }
 .choices.n3 { --w: min(28vw, 50dvh, 300px); }
@@ -331,6 +334,8 @@ button:focus-visible, a:focus-visible { outline: 4px solid var(--accent); outlin
 .choice.correct { box-shadow: 0 0 0 8px var(--good), var(--shadow); }
 .choice.fade { opacity: .3; filter: grayscale(.6); }
 .choice.hint { animation: glow 1s ease-in-out infinite; }
+/* Tắt pop-in/glow khi đã chọn: pop-in giữ opacity 1 nên che mất .fade, glow che viền xanh. */
+.choice.correct, .choice.fade { animation: none; }
 @keyframes pop-in { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes glow {
   0%, 100% { box-shadow: 0 0 0 0 rgba(255, 122, 89, .0), var(--shadow); }
@@ -338,9 +343,12 @@ button:focus-visible, a:focus-visible { outline: 4px solid var(--accent); outlin
 }
 
 .play-foot {
+  flex: 1;
+  min-height: 0;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 0 16px 16px;
+  padding: 0 16px;
 }
 .next-q {
   width: clamp(110px, 18vw, 150px);
@@ -465,6 +473,17 @@ button:focus-visible, a:focus-visible { outline: 4px solid var(--accent); outlin
 /* ---------- Hiệu ứng ---------- */
 #fx { position: fixed; inset: 0; pointer-events: none; z-index: 50; overflow: hidden; }
 .spark { position: absolute; font-size: 34px; font-family: var(--emoji); }
+.cheer { font-size: clamp(130px, 26vw, 240px); filter: drop-shadow(0 6px 10px rgba(61, 44, 94, .25)); }
+.cheer-text {
+  position: absolute;
+  white-space: nowrap;
+  font-size: clamp(56px, 11vw, 110px);
+  font-weight: 800;
+  color: var(--accent);
+  -webkit-text-stroke: 3px #fff;
+  paint-order: stroke fill;
+  text-shadow: 0 6px 0 rgba(61, 44, 94, .18), 0 10px 24px rgba(61, 44, 94, .25);
+}
 .drop { position: absolute; width: 16px; height: 16px; border-radius: 50%; }
 
 /* ---------- Cài đặt ---------- */

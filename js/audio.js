@@ -99,7 +99,7 @@ window.Sfx = (function () {
   let clapBuf = null;
 
   // Tiếng vỗ tay: nhiều tiếng "bép" ngắn từ nhiễu trắng, dày lúc đầu rồi thưa dần.
-  function applause() {
+  function applause(total) {
     const c = audio();
     if (!c) return;
     if (!clapBuf) {
@@ -107,8 +107,9 @@ window.Sfx = (function () {
       const d = clapBuf.getChannelData(0);
       for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3);
     }
-    const total = 3;
-    for (let i = 0; i < 140; i++) {
+    total = total || 3;
+    const claps = Math.round(total * 45);
+    for (let i = 0; i < claps; i++) {
       const at = Math.pow(Math.random(), 1.6) * total;
       const t = c.currentTime + at;
       const src = c.createBufferSource();
@@ -131,7 +132,7 @@ window.Sfx = (function () {
     pop() { if (sfx.enabled) { tone(1100, 0, 0.09, 'square', 0.08, 180); tone(300, 0.02, 0.12, 'sine', 0.15, 80); } },
     win() { if (sfx.enabled) [523, 659, 784, 1047].forEach((f, i) => tone(f, i * 0.09, 0.28, 'triangle', 0.16)); },
     oops() { if (sfx.enabled) tone(330, 0, 0.3, 'sine', 0.15, 220); },
-    applause() { if (sfx.enabled) applause(); }
+    applause(sec) { if (sfx.enabled) applause(sec); }
   };
   return sfx;
 })();
