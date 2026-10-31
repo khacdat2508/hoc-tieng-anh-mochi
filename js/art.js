@@ -74,5 +74,14 @@
     `<g transform="translate(84 46) scale(.6)">${mommy}</g>` +
     `<g transform="translate(50 92) scale(.54)">${sister}</g>`;
 
-  window.ART_SVG = { mommy, daddy, baby, grandma, grandpa, brother, sister, family };
+  // Bóng bay nhiều màu: emoji 🎈 màu đỏ làm bé nhầm thành "red".
+  const balloon =
+    `<path d="M100 12C62 12 42 44 42 80c0 32 26 58 58 68-20-18-28-44-28-68 0-30 12-56 28-68z" fill="#4dabf7"/>` +
+    `<path d="M100 12C84 24 72 50 72 80c0 24 8 50 28 68 20-18 28-44 28-68 0-30-12-56-28-68z" fill="#ffd43b"/>` +
+    `<path d="M100 12c38 0 58 32 58 68 0 32-26 58-58 68 20-18 28-44 28-68 0-30-12-56-28-68z" fill="#51cf66"/>` +
+    `<ellipse cx="68" cy="52" rx="9" ry="18" transform="rotate(24 68 52)" fill="#fff" opacity=".5"/>` +
+    `<path d="M100 146l-9 13h18z" fill="#7a6a9a"/>` +
+    `<path d="M100 159c-12 12 10 16 0 28s4 10 0 13" fill="none" stroke="#7a6a9a" stroke-width="3" stroke-linecap="round"/>`;
+
+  window.ART_SVG = { mommy, daddy, baby, grandma, grandpa, brother, sister, family, balloon };
 })();

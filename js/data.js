@@ -180,7 +180,7 @@
         { en: 'spoon', vi: 'cái thìa', emoji: '🥄' },
         { en: 'toothbrush', vi: 'bàn chải đánh răng', emoji: '🪥' },
         { en: 'umbrella', vi: 'cái ô', emoji: '☂️' },
-        { en: 'balloon', vi: 'bóng bay', emoji: '🎈' }
+        { en: 'balloon', vi: 'bóng bay', art: 'balloon', emoji: '🎈' }
       ]
     },
     {
