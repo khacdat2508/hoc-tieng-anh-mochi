@@ -98,7 +98,7 @@
         { en: 'mouth', vi: 'cái miệng', emoji: '👄' },
         { en: 'ear', vi: 'cái tai', emoji: '👂' },
         { en: 'hand', vi: 'bàn tay', emoji: '✋' },
-        { en: 'foot', vi: 'bàn chân', emoji: '🦶' },
+        { en: 'feet', vi: 'đôi bàn chân', emoji: '🦶', plural: true },
         { en: 'leg', vi: 'cái chân', emoji: '🦵' },
         { en: 'teeth', vi: 'răng', emoji: '🦷', plural: true },
         { en: 'tongue', vi: 'cái lưỡi', emoji: '👅' }
